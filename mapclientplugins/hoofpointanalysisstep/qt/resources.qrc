@@ -1,0 +1,6 @@
+
+<RCC>
+  <qresource prefix="hoofpointanalysisstep">
+    <file>images/fitting.png</file>
+  </qresource>
+</RCC>
