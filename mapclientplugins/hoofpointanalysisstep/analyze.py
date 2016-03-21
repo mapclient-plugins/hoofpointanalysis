@@ -7,8 +7,8 @@ from math import pi, acos
 
 import numpy as np
 
-from vectorops import sub, dot
-from vectorops import magnitude
+from .vectorops import sub, dot
+from .vectorops import magnitude
 
 class PointAnalyzer(object):
     '''
