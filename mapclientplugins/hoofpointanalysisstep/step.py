@@ -1,4 +1,3 @@
-
 '''
 MAP Client Plugin Step
 '''
@@ -19,10 +18,10 @@ class HoofPointAnalysisStep(WorkflowStepMountPoint):
 
     def __init__(self, location):
         super(HoofPointAnalysisStep, self).__init__('Hoof Point Analysis', location)
-        self._configured = False # A step cannot be executed until it has been configured.
+        self._configured = False  # A step cannot be executed until it has been configured.
         self._category = 'Fitting'
         # Add any other initialisation code here:
-        self._icon =  QtGui.QImage(':/hoofpointanalysisstep/images/fitting.png')
+        self._icon = QtGui.QImage(':/hoofpointanalysisstep/images/fitting.png')
         # Ports:
         self.addPort(('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#uses',
@@ -31,12 +30,11 @@ class HoofPointAnalysisStep(WorkflowStepMountPoint):
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#provides',
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#dict'))
         # Port data:
-        self._portData0 = None # http://physiomeproject.org/workflow/1.0/rdf-schema#hoofmarkers
-        self._portData1 = None # http://physiomeproject.org/workflow/1.0/rdf-schema#dict
+        self._portData0 = None  # http://physiomeproject.org/workflow/1.0/rdf-schema#hoofmarkers
+        self._portData1 = None  # http://physiomeproject.org/workflow/1.0/rdf-schema#dict
         # Config:
         self._config = {}
         self._config['identifier'] = ''
-
 
     def execute(self):
         '''
@@ -51,7 +49,7 @@ class HoofPointAnalysisStep(WorkflowStepMountPoint):
         for location in locations:
             a, h = point_analyzer.analyze(locations[location])
             self._portData1[location] = {'sulcus_angle': a, 'ridge_height': h}
-            
+
         self._doneExecution()
 
     def setPortData(self, index, dataIn):
@@ -60,7 +58,7 @@ class HoofPointAnalysisStep(WorkflowStepMountPoint):
         The index is the index of the port in the port list.  If there is only one
         uses port for this step then the index can be ignored.
         '''
-        self._portData0 = dataIn # http://physiomeproject.org/workflow/1.0/rdf-schema#hoofmarkers
+        self._portData0 = dataIn  # http://physiomeproject.org/workflow/1.0/rdf-schema#hoofmarkers
 
     def getPortData(self, index):
         '''
@@ -68,7 +66,7 @@ class HoofPointAnalysisStep(WorkflowStepMountPoint):
         The index is the index of the port in the port list.  If there is only one
         provides port for this step then the index can be ignored.
         '''
-        return self._portData1 # http://physiomeproject.org/workflow/1.0/rdf-schema#dict
+        return self._portData1  # http://physiomeproject.org/workflow/1.0/rdf-schema#dict
 
     def configure(self):
         '''
@@ -109,7 +107,6 @@ class HoofPointAnalysisStep(WorkflowStepMountPoint):
         '''
         return json.dumps(self._config, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-
     def deserialize(self, string):
         '''
         Add code to deserialize this step from string.  This method should
@@ -121,5 +118,3 @@ class HoofPointAnalysisStep(WorkflowStepMountPoint):
         d.identifierOccursCount = self._identifierOccursCount
         d.setConfig(self._config)
         self._configured = d.validate()
-
-
